@@ -32,7 +32,7 @@ Create a configuration file with a list of A10 appliances, similar to the
 file below, located at: `/etc/neutron/services/loadbalancer/a10networks/config.py`.
 
 Or you can override that directory by setting the environment
-variable A10\_CONFIG\_DIR.
+variable `A10_CONFIG_DIR`.
 
 #### Example config file:
 
@@ -66,7 +66,7 @@ devices = {
 If you encounter any problems, you can contact us at:
 
 * [a10-openstack-ci@a10networks.com](mailto: a10-openstack-ci@a10networks.com)
-* Doug Wiegley directly (IRC: dougwig)
+* Doug Wiegley directly via IRC (dougwig)
 
 ## Contributing
 
