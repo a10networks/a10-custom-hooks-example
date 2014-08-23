@@ -63,7 +63,7 @@ devices = {
 
 ## Third-party CI Information
 
-If you encounter any problems, you can contact us at:
+If you encounter any problems, contact A10 at:
 
 * [a10-openstack-ci@a10networks.com](mailto: a10-openstack-ci@a10networks.com)
 * Doug Wiegley directly via IRC (dougwig)
