@@ -36,7 +36,7 @@ variable A10\_CONFIG\_DIR.
 
 #### Example config file:
 
-```json
+```python
 devices = {
     "ax1": {
         "name": "ax1",
