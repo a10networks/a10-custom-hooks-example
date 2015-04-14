@@ -26,5 +26,5 @@ setup(
         'Topic :: Internet',
     ],
 
-    install_requires = ['a10-neutron-lbaas>=1.2.5']
+    install_requires = ['a10-neutron-lbaas>=1.3.1']
 )
