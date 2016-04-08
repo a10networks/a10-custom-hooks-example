@@ -4,7 +4,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = "a10-openstack-lbaas",
+    name = "a10-custom-rename-me",
     version = "1.0.3",
     packages = find_packages(),
 
@@ -26,5 +26,5 @@ setup(
         'Topic :: Internet',
     ],
 
-    install_requires = ['a10-neutron-lbaas>=1.3.1']
+    install_requires = ['a10-neutron-lbaas>=1.4.2']
 )

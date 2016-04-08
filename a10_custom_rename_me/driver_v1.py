@@ -1,5 +1,3 @@
-# Copyright 2014, Doug Wiegley (dougwig), A10 Networks
-#
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
 #    not use this file except in compliance with the License. You may obtain
 #    a copy of the License at
@@ -13,6 +11,7 @@
 #    under the License.
 
 import a10_neutron_lbaas
+from a10_neutron_lbaas import plumbing_hooks
 
 from neutron.db import l3_db
 from neutron.db.loadbalancer import loadbalancer_db as lb_db
@@ -20,16 +19,30 @@ from neutron.openstack.common import log as logging
 from neutron.plugins.common import constants
 from neutron.services.loadbalancer.drivers import abstract_driver
 
-VERSION = "1.0.0"
+VERSION = "1.0.0C"
 LOG = logging.getLogger(__name__)
 
 
-# Most driver calls below are straight passthroughs to the A10 package
-# 'a10_neutron_lbaas'.  Any function that has not been fully abstracted
-# into the openstack driver/plugin interface is NOT passed through, to
-# make it obvious which hidden interfaces/db calls that we rely on.
+class CustomHooks(plumbing_hooks.PlumbingHooks):
 
-class ThunderDriver(abstract_driver.LoadBalancerAbstractDriver):
+    def __init__(self, driver):
+        super(CustomHooks, self).__init__(driver)
+
+        # TODO(dougwig)
+        # -- add any custom one-time init here
+
+    def select_device(self, tenant_id):
+
+        # TODO(dougwig)
+        # -- write your own selection algorithm here. Must return
+        # one of the entries in the dictionary self.devices, which is
+        # a copy of the dictionary from /etc/a10/config.py
+
+        # change me -- example simple selector that always takes the first
+        return self.devices[self.devices.keys[0]]
+
+
+class CustomDriver(abstract_driver.LoadBalancerAbstractDriver):
 
     def __init__(self, plugin):
         LOG.debug("A10Driver: init version=%s", VERSION)
@@ -55,7 +68,8 @@ class ThunderDriver(abstract_driver.LoadBalancerAbstractDriver):
         LOG.debug("A10Driver: initializing, version=%s, lbaas_manager=%s",
                   VERSION, a10_neutron_lbaas.VERSION)
 
-        self.a10 = a10_neutron_lbaas.A10OpenstackLBV1(self)
+        self.a10 = a10_neutron_lbaas.A10OpenstackLBV1(
+            self, plumbing_hooks_class=CustomHooks)
 
     # The following private helper methods are used by a10_neutron_lbaas,
     # and reflect the neutron interfaces required by that package.
